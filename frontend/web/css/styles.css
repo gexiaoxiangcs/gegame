@@ -556,8 +556,8 @@ li.load>div>div{background:#b7b7b9;width:.1rem;height:1rem;}
     [id^="box-"]{height:auto;}
     .topBar{position:absolute;left:0;top:0;width:100%;background:#fff;}
     .topBar>div{width:50rem;margin:auto;height:100%;padding:.5rem 0;}
-    .topBar>div>div:first-child{background:url("../image/logo.png") no-repeat;width:7.15rem;height:2.4rem;}
-    .topBar>div>div:last-child{background:url("../image/downapp.png") right top no-repeat;width:5.25rem;height:1.45rem;margin:auto 0 auto auto;cursor:pointer;position:relative;}
+    .topBar>div>div:first-child{background:url("") no-repeat;width:7.15rem;height:2.4rem;}
+    .topBar>div>div:last-child{background:url("") right top no-repeat;width:5.25rem;height:1.45rem;margin:auto 0 auto auto;cursor:pointer;position:relative;}
     .downQrcode>div{position:absolute;color:#2697fd;z-index:99;top:2.4rem;right:-1rem;text-align:center;padding:.75rem;}
     .downQrcode>div>div:nth-child(2){margin-left:.75rem;}
     .downQrcode>div.active{background:rgba(255,255,255,.5);-moz-animation:qrcode .5s;-webkit-animation:qrcode .5s;animation:qrcode .5s;}

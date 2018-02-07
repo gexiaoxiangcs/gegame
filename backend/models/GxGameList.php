@@ -58,4 +58,8 @@ class GxGameList extends \yii\db\ActiveRecord
             'status' => 'Status',
         ];
     }
+
+    public function getlist() {
+        return GxGameList::find()->asArray()->all();
+    }
 }

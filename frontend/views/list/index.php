@@ -10,23 +10,13 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="爱微游">
+    <meta name="apple-mobile-web-app-title" content="gegamer">
     <meta http-equiv="pragma" content="no-cache"/>
     <meta http-equiv="cache-control" content="no-cache"/>
     <meta http-equiv="cache" content="no-cache"/>
     <meta http-equiv="expires" content="0"/>
-    <meta name="keywords" content="爱微游,游光,h5游戏,手机游戏"/>
-    <meta name="description" content="游光网络旗下由爱微游提供好玩的H5小游戏，无需下载，即点即玩。"/>
-    <!--<link rel="apple-touch-icon" href="http://cdn.11h5.com/static/image/screen_logo.png" sizes="57x57">-->
-    <!--<link rel="apple-touch-icon" href="http://cdn.11h5.com/static/image/screen_logo.png" sizes="72x72">-->
-    <!--<link rel="apple-touch-icon" href="http://cdn.11h5.com/static/image/screen_logo.png" sizes="76x76">-->
-    <!--<link rel="apple-touch-icon" href="http://cdn.11h5.com/static/image/screen_logo.png" sizes="114x114">-->
-    <!--<link rel="apple-touch-icon" href="http://cdn.11h5.com/static/image/screen_logo.png" sizes="120x120">-->
-    <!--<link rel="apple-touch-icon" href="http://cdn.11h5.com/static/image/screen_logo.png" sizes="144x144">-->
-    <!--<link rel="apple-touch-icon" href="http://cdn.11h5.com/static/image/screen_logo.png" sizes="152x152">-->
-    <link href="//cdn.11h5.com/static/image/favicon.ico" rel="bookmark" type="image/x-icon">
-    <link href="//cdn.11h5.com/static/image/favicon.ico" rel="icon" type="image/x-icon">
-    <link href="//cdn.11h5.com/static/image/favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <meta name="keywords" content="gegamer"/>
+    <meta name="description" content="gegamer"/>
     <link href="//cdn.11h5.com/static/css/common.css?v=11" rel="stylesheet">
     <link href="./css/styles.css?ver=20180104001" rel="stylesheet">
 </head>
@@ -42,18 +32,7 @@
 <div class="wrap-box">
     <div class="wrap">
         <div id="scroll">
-            <div id="box-1" class="hide">
-                <div class="flex ad_download">
-                    <i class="icon-cancel"></i>
-                    <div class="flex flex-list">
-                        <img src="//cdn.11h5.com/static/image/logo_x.png">
-                        <p class="flex flex-v">
-                            <span>爱微游</span>
-                            <span>下载APP，轻松玩游戏</span>
-                        </p>
-                    </div>
-                    <a href="javascript:;" class="btn">免费下载</a>
-                </div>
+            <div id="box-1" class="">
                 <div id="slide" class="slide-banner">
                     <div class="bd"><ol></ol></div>
                     <div class="hd"><ul class="flex"></ul></div>
@@ -312,24 +291,17 @@
     </div>
     <div class="leftInfo"></div>
 </div>
-<div class="footer">
-    <div>
-        <p>沪网文[2015]0859-239号 | <a target="_blank" href="http://www.miibeian.gov.cn/">沪ICP备14051743号-4</a> | 沪B2-20170225</p>
-        <p>Copyright©2014-2017 All Rights Reserved</p>
-        <p>抵制不良游戏 拒绝盗版游戏 注意自我保护 谨防受骗上当 适度游戏益脑 沉迷游戏伤身 合理安排时间 享受健康生活</p>
-        <!--<a target="_blank" href="https://v.pinpaibao.com.cn/authenticate/cert/?site=www.11h5.com&at=business"><img src="//static.anquan.org/static/outer/image/hy_83x30.png?id=www.11h5.com?t=67" alt=""></a>-->
-    </div>
-</div>
 <script src="//res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 <script src="//mp.gtimg.cn/open/js/openApi.js"></script>
 <script src="//cdn.11h5.com/static/js/zepto.min.js"></script>
 <script src="//cdn.11h5.com/static/js/sdk.min.js"></script>
-<script src="//cdn.11h5.com/static/js/sdk.scroll.min.js"></script>
 <script src="//cdn.11h5.com/static/js/sdk_host.min.js"></script>
 <script src="//cdn.11h5.com/static/js/touchSlide.min.js"></script>
-<script src="//cdn.11h5.com/static/js/sdk_copy.min.js"></script>
+<script src="./js/core.min.js?ver=20180117002"></script>
+<script src="./js/index.js?ver=20180117002"></script>
 </body>
 </html>
 <?php
-$this->registerJsFile('./js/core.min.js?ver=20180117002')
+//$this->registerJsFile('./js/core.min.js?ver=20180117002');
+//$this->registerJsFile('./js/index.js');
 ?>
