@@ -292,11 +292,11 @@
     <div class="leftInfo"></div>
 </div>
 <script src="//res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
-<script src="//mp.gtimg.cn/open/js/openApi.js"></script>
-<script src="//cdn.11h5.com/static/js/zepto.min.js"></script>
-<script src="//cdn.11h5.com/static/js/sdk.min.js"></script>
-<script src="//cdn.11h5.com/static/js/sdk_host.min.js"></script>
-<script src="//cdn.11h5.com/static/js/touchSlide.min.js"></script>
+<script src="./js/openApi.js"></script>
+<script src="./js/zepto.min.js"></script>
+<script src="./js/sdk.min.js"></script>
+<script src="./js/sdk_host.min.js"></script>
+<script src="./js/touchSlide.min.js"></script>
 <script src="./js/core.min.js?ver=20180117002"></script>
 <script src="./js/index.js?ver=20180117002"></script>
 </body>

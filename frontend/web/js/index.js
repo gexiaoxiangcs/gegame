@@ -14,6 +14,7 @@ function index() {
         dataType:"json",
         data:'',
         success:function(json) {
+            $('.recommend').show();
             console.log(json);
         }
 
