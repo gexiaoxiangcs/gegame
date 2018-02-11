@@ -298,10 +298,10 @@
 <script src="./js/sdk_host.min.js"></script>
 <script src="./js/touchSlide.min.js"></script>
 <script src="./js/core.min.js?ver=20180117002"></script>
-<script src="./js/index.js?ver=20180117002"></script>
+<!--<script src="./js/index.js?ver=20180117002"></script>-->
 </body>
 </html>
 <?php
-//$this->registerJsFile('./js/core.min.js?ver=20180117002');
+//$this->registerJsFile('./js/core.min.back.js?ver=20180117002');
 //$this->registerJsFile('./js/index.js');
 ?>

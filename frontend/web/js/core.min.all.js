@@ -36,8 +36,7 @@ gc.actList = [{
         desc: ""
     }
 }];
-//gc.apiBaseURL = "https://web.11h5.com/api?";
-gc.apiBaseURL = "/index.php?r=";
+gc.apiBaseURL = "https://web.11h5.com/api?";
 gc.enterURL = "https://shopapi.11h5.com:13059/game?";
 gc.pointGiftPort = [3229, 3230, 3231, 3232];
 gc.pointGiftIp = ["123_206_195_168/", "182_254_243_60/", "118_89_143_111/", "118_89_163_122/", "111_231_17_58/", "123_206_108_30/"];
@@ -60,7 +59,7 @@ gc.myPoints = 0;
 gc.myVip = 0;
 var dayLimit = 0;
 var dayCount = 0;
-gc.pageSize = 11;
+gc.pageSize = 12;
 gc.page = {
     hot: 1,
     oldService: 1,
@@ -131,7 +130,7 @@ gc.httpGet = function (url, callback) {
 gc.slider = function (data) {
     var t = "";
     for (var i in data) {
-        t += '<li onclick="sdk.combineStat(' + sdk.uid + ",'首页Banner', [{'广告位':'" + (parseInt(i) + 1) + "号位'}])\"><a onclick=\"gc.rebuildGameURL('" + data[i].link_url + '\')" href="javascript:;"><img height="176" width="440" src="' + data[i].ad_pic_url + '" ></a></li>'
+        t += '<li onclick="sdk.combineStat(' + sdk.uid + ",'首页Banner', [{'广告位':'" + (parseInt(i) + 1) + "号位'}])\"><a onclick=\"gc.rebuildGameURL('" + data[i].link_url + '\')" href="javascript:;"><img src="' + data[i].ad_pic_url + '" ></a></li>'
     }
     $(".slide-banner ol").append(t);
     if (data.length > 1) {
@@ -259,52 +258,51 @@ gc.loadGameAct = function () {
 };
 gc.getPageBase = function () {
     if (gc.status.ad) {
-        gc.httpGet(gc.apiBaseURL + "get-page-base", function (data) {
+        gc.httpGet(gc.apiBaseURL + "getPageBase", function (data) {
             gc.status.ad = false;
-            data = data.data;
             gc.adList = data.ad;
             gc.recentList = data.recent_play;
             var count = 0;
             var _count = 0;
             gc.slider(gc.adList);
-//            if (gc.recentList.length) {
-//                $(".recommend").show();
-//                var t = "";
-//                for (var i in gc.recentList) {
-//                    if (i < 10) {
-//                        count++;
-//                        t += "<li><a onclick=\"gc.rebuildGameURL('" + gc.recentList[i].game_url + '\')" href="javascript:;"><img class="r5" src="' + gc.recentList[i].icon + '" ><span>' + gc.recentList[i].title + "</span></a><a onclick=\"gc.rebuildGameURL('" + gc.recentList[i].game_url + '\')" href="javascript:;" class="btn r3">开始</a></li>'
-//                    }
-//                    if (i < 5) {
-//                        if (gc.gameBlankList.indexOf(gc.recentList[i].id) >= 0) {
-//                            _count++
-//                        }
-//                    }
-//                }
-//                $(".recommend dd ol").css("width", count * 5.15 + 2 + "rem").append(t);
-//                setTimeout(function () {
-//                    var scroll = new IScroll("#wrapper-rec", {
-//                        scrollX: true,
-//                        mouseWheel: true,
-//                        click: true
-//                    });
-//                    scroll.on("scrollStart", function () {
-//                        $(".recommend dt").animate({
-//                            opacity: ".1"
-//                        }, 500)
-//                    });
-//                    scroll.on("scrollEnd", function () {
-//                        if (Math.abs(this.x) <= 5) {
-//                            $(".recommend dt").css({
-//                                opacity: "1"
-//                            })
-//                        }
-//                    })
-//                }, 100)
-//            }
-//            if (!_count) {
-//                gc.loadGameAct()
-//            }
+            if (gc.recentList.length) {
+                $(".recommend").show();
+                var t = "";
+                for (var i in gc.recentList) {
+                    if (i < 10) {
+                        count++;
+                        t += "<li><a onclick=\"gc.rebuildGameURL('" + gc.recentList[i].game_url + '\')" href="javascript:;"><img class="r5" src="' + gc.recentList[i].icon + '" ><span>' + gc.recentList[i].title + "</span></a><a onclick=\"gc.rebuildGameURL('" + gc.recentList[i].game_url + '\')" href="javascript:;" class="btn r3">开始</a></li>'
+                    }
+                    if (i < 5) {
+                        if (gc.gameBlankList.indexOf(gc.recentList[i].id) >= 0) {
+                            _count++
+                        }
+                    }
+                }
+                $(".recommend dd ol").css("width", count * 5.15 + 2 + "rem").append(t);
+                setTimeout(function () {
+                    var scroll = new IScroll("#wrapper-rec", {
+                        scrollX: true,
+                        mouseWheel: true,
+                        click: true
+                    });
+                    scroll.on("scrollStart", function () {
+                        $(".recommend dt").animate({
+                            opacity: ".1"
+                        }, 500)
+                    });
+                    scroll.on("scrollEnd", function () {
+                        if (Math.abs(this.x) <= 5) {
+                            $(".recommend dt").css({
+                                opacity: "1"
+                            })
+                        }
+                    })
+                }, 100)
+            }
+            if (!_count) {
+                gc.loadGameAct()
+            }
         })
     }
 };
@@ -438,28 +436,27 @@ gc.addLabels = function (data, isnew) {
 };
 gc.loadGameHot = function () {
     if (gc.page.hot) {
-        gc.httpGet(gc.apiBaseURL + "get-list&page=" + gc.page.hot + "&pageSize=" + gc.pageSize, function (data) {
+        gc.httpGet(gc.apiBaseURL + "getRecoGames&page=" + gc.page.hot + "&pageSize=" + gc.pageSize, function (data) {
             var t = "";
             data = data.data;
             gc.status.hot = false;
             if (data && data.length) {
                 for (var i in data) {
                     t += '<li class="flex"><div class="new">';
-                    if (Date.parse(gc.time) / 1e3 - data[i].created_at < 7 * 24 * 3600) {
+                    if (Date.parse(gc.time) / 1e3 - data[i].recoEndTime < 7 * 24 * 3600) {
                         t += "<i>新游</i>"
                     }
-                    t += '<img class="r5" onclick="gc.loadGameInfo(' + data[i].id + ",this,['热门','icon区域'])\" src=\"" + data[i].img + '"></div>';
-                    t += '<div onclick="gc.loadGameInfo(' + data[i].id + ',this,[\'热门\',\'标题区域\'])" class="flex flex-list flex-v"><p class="title"><span>' + data[i].name + "</span>";
-//                    t += gc.addLabels(data[i].labels);
+                    t += '<img class="r5" onclick="gc.loadGameInfo(' + data[i].id + ",this,['热门','icon区域'])\" src=\"" + data[i].icon + '"></div>';
+                    t += '<div onclick="gc.loadGameInfo(' + data[i].id + ',this,[\'热门\',\'标题区域\'])" class="flex flex-list flex-v"><p class="title"><span>' + data[i].title + "</span>";
+                    t += gc.addLabels(data[i].labels);
                     t += "</p>";
-                    if (data[i].description) {
-                        t += "<p>" + data[i].description + "</p>"
+                    if (data[i].brief_intro) {
+                        t += "<p>" + data[i].brief_intro + "</p>"
                     }
-                    t += "</div><a onclick=\"gc.rebuildGameURL('" + data[i].url + "',this,['热门','开始按钮'])\" href=\"javascript:;\" class=\"btn r3\">开始</a></li>"
+                    t += "</div><a onclick=\"gc.rebuildGameURL('" + data[i].game_url + "',this,['热门','开始按钮'])\" href=\"javascript:;\" class=\"btn r3\">开始</a></li>"
                 }
                 $("#hot-box").append(t);
                 $("#hot-box li.end").remove();
-                console.log(data.length);
                 if (data.length >= gc.pageSize) {
                     gc.page.hot++;
                     gc.isReady = true;
@@ -476,20 +473,20 @@ gc.loadGameHot = function () {
     }
 };
 gc.loadGameNew = function () {
-    gc.httpGet(gc.apiBaseURL + "get-list-new&page=1&pageSize=15", function (data) {
+    gc.httpGet(gc.apiBaseURL + "getNewGames&page=1&pageSize=15", function (data) {
         var t = "";
         data = data.data;
         gc.status.new = false;
         if (data && data.length) {
             for (var i in data) {
-                t += '<li class="flex"><img class="r5" onclick="gc.loadGameInfo(' + data[i].id + ",this,['新上架','icon区域'])\" src=\"" + data[i].img + '">';
-                t += '<div onclick="gc.loadGameInfo(' + data[i].id + ',this,[\'新上架\',\'标题区域\'])" class="flex flex-list flex-v"><p class="title"><span>' + data[i].name + "</span>";
-//                t += gc.addLabels(data[i].labels, true);
+                t += '<li class="flex"><img class="r5" onclick="gc.loadGameInfo(' + data[i].id + ",this,['新上架','icon区域'])\" src=\"" + data[i].icon + '">';
+                t += '<div onclick="gc.loadGameInfo(' + data[i].id + ',this,[\'新上架\',\'标题区域\'])" class="flex flex-list flex-v"><p class="title"><span>' + data[i].title + "</span>";
+                t += gc.addLabels(data[i].labels, true);
                 t += "</p>";
-                if (data[i].description) {
-                    t += "<p>" + data[i].description + "</p>"
+                if (data[i].brief_intro) {
+                    t += "<p>" + data[i].brief_intro + "</p>"
                 }
-                t += "</div><a onclick=\"gc.rebuildGameURL('" + data[i].url + "',this,['新上架','开始按钮'])\" href=\"javascript:;\" class=\"btn r3\">开始</a></li>"
+                t += "</div><a onclick=\"gc.rebuildGameURL('" + data[i].game_url + "',this,['新上架','开始按钮'])\" href=\"javascript:;\" class=\"btn r3\">开始</a></li>"
             }
         }
         t += '<li class="end"><fieldset><legend>没有更多了</legend></fieldset></li>';
@@ -752,13 +749,13 @@ gc.loadNewServer = function () {
 };
 gc.loadReadyServer = function () {
     if (gc.page.oldService) {
-        gc.httpGet(gc.apiBaseURL + "get-list-start&page=" + gc.page.oldService + "&pageSize=" + gc.pageSize + "&type=3", function (data) {
+        gc.httpGet(gc.apiBaseURL + "getZones&page=" + gc.page.oldService + "&pageSize=" + gc.pageSize + "&type=3", function (data) {
             var t = "";
-            data = data.data;
+            data = data.r;
             gc.status.oldService = false;
             if (data && data.length) {
                 for (var i in data) {
-                    var open_time = new Date(data[i].created_at * 1e3);
+                    var open_time = new Date(data[i].open_time * 1e3);
                     var oldTime = (new Date).getHours() - open_time.getHours() + "小时";
                     if ((new Date).getDate() != open_time.getDate()) {
                         oldTime = (new Date).getHours() + 24 - open_time.getHours() + "小时"
@@ -770,19 +767,19 @@ gc.loadReadyServer = function () {
                         oldTime = (new Date).getMinutes() - open_time.getMinutes() + "分钟"
                     }
                     t += '<li class="flex">';
-                    t += '<img onclick="gc.loadGameInfo(' + data[i].id + ",this,['已开新服','icon区域','" + data[i].name + '\'])" src="' + data[i].img + '">';
-                    t += '<div onclick="gc.loadGameInfo(' + data[i].id + ",this,['已开新服','标题区域','" + data[i].name + '\'])" class="flex flex-list flex-v">';
+                    t += '<img onclick="gc.loadGameInfo(' + data[i].gameID + ",this,['已开新服','icon区域','" + data[i].gname + '\'])" src="' + data[i].icon + '">';
+                    t += '<div onclick="gc.loadGameInfo(' + data[i].gameID + ",this,['已开新服','标题区域','" + data[i].gname + '\'])" class="flex flex-list flex-v">';
                     t += '<p class="title">';
-                    if (data[i].name.length > 5) {
-                        t += data[i].name.substr(0, 5) + "..."
+                    if (data[i].gname.length > 5) {
+                        t += data[i].gname.substr(0, 5) + "..."
                     } else {
-                        t += data[i].name
+                        t += data[i].gname
                     }
                     t += "</p>";
-                    t += "<p>" + data[i].name + "</p>";
+                    t += "<p>" + data[i].zname + "</p>";
                     t += "</div>";
                     t += "<span>已开服" + oldTime + "</span>";
-                    t += "<a onclick=\"gc.rebuildGameURL('" + data[i].url + "',this,['已开新服','开始游戏按钮','" + data[i].name + '\'])" href="javascript:;" class="btn r3">开始游戏</a>';
+                    t += "<a onclick=\"gc.rebuildGameURL('" + data[i].game_url + "',this,['已开新服','开始游戏按钮','" + data[i].gname + '\'])" href="javascript:;" class="btn r3">开始游戏</a>';
                     t += "</li>"
                 }
                 $("#today-box").append(t);
@@ -845,7 +842,6 @@ gc.showMore = function (e) {
     $(e).prev().empty().append($(e).attr("data-des"))
 };
 gc.loadGameInfo = function (id, e, args) {
-    return;
     gc.httpGet(gc.apiBaseURL + "getGameInfo&id=" + id, function (data) {
         var _data = data.data;
         var gift = data.gift;
@@ -987,8 +983,6 @@ gc.loadGameInfo = function (id, e, args) {
     }
 };
 gc.rebuildGameURL = function (url, e, args) {
-    location.href = url;
-    return;
     if (args) {
         var index = $(e).parents("li.flex").index() + 1;
         if (args[2]) {
@@ -2312,7 +2306,7 @@ gc.init = function (callback) {
         if (sdk.isWeixin() || sdk.isQQ() || sdk.isAvuAPP()) {
             sdk.auth()
         } else {
-            gc.apiBaseURL += "list/";
+            gc.apiBaseURL += "cmd=";
             callback()
         }
     }
@@ -2841,19 +2835,19 @@ gc.init(function () {
             }
         }
     }
-//    gc.httpGet(gc.apiBaseURL + "getRemindDot", function (data) {
-//        var data = data.remind;
-//        if (data[1]) {
-//            $(".footer-nav i.icon-gift").append('<em class="r50"></em>')
-//        }
-//        if (data[3]) {
-//            $("#box-1>ol.nav li").eq(1).find("a").append('<em class="r50"></em>')
-//        }
-//    });
-//
-//    function delectDot(type) {
-//        gc.httpGet(gc.apiBaseURL + "delRemindDot&type=" + type, function () {})
-//    }
+    gc.httpGet(gc.apiBaseURL + "getRemindDot", function (data) {
+        var data = data.remind;
+        if (data[1]) {
+            $(".footer-nav i.icon-gift").append('<em class="r50"></em>')
+        }
+        if (data[3]) {
+            $("#box-1>ol.nav li").eq(1).find("a").append('<em class="r50"></em>')
+        }
+    });
+
+    function delectDot(type) {
+        gc.httpGet(gc.apiBaseURL + "delRemindDot&type=" + type, function () {})
+    }
     $(".mknav a").click(function (e) {
         var _this = $(e.target).parents("li.flex-list");
         if (_this.find("em").length) {
@@ -2940,37 +2934,37 @@ gc.init(function () {
         }
     }
 
-//    function addQrcode(url) {
-//        var t = '<div class="flex flex-v quickQrcode">';
-//        t += '<img src="' + (url ? url : "//cdn.11h5.com/static/image/qrcode_plus.jpg") + '">';
-//        t += "<p>微信扫码 在手机上玩</p>";
-//        t += "</div>";
-//        $(".wrap-box").append(t)
-//    }
+    function addQrcode(url) {
+        var t = '<div class="flex flex-v quickQrcode">';
+        t += '<img src="' + (url ? url : "//cdn.11h5.com/static/image/qrcode_plus.jpg") + '">';
+        t += "<p>微信扫码 在手机上玩</p>";
+        t += "</div>";
+        $(".wrap-box").append(t)
+    }
     if ($(window).width() > 750 && !sdk.isAvuAPP()) {
-//        $(".downQrcode").mouseenter(function () {
-//            if (!$(".downQrcode>div").html()) {
-//                sdk.createQRCode("//a.app.qq.com/o/simple.jsp?pkgname=com.vutimes.app", 120, 120, function (data) {
-//                    $(".downQrcode>div").append('<img src="' + data + '"  >').addClass("active")
-//                })
-//            } else {
-//                $(".downQrcode>div").removeClass("hide").addClass("active")
-//            }
-//        }).mouseleave(function () {
-//                $(".downQrcode>div").addClass("hide").removeClass("active")
-//            });
-//        if (gc.chid) {
-//            sdk.getChannelInfo(gc.chid, function (data) {
-//                if (data && data.replaceQrcodeUrl) {
-//                    addQrcode(data.replaceQrcodeUrl);
-//                    $(".topBar").remove()
-//                } else {
-////                    addQrcode()
-//                }
-//            })
-//        } else {
-////            addQrcode()
-//        }
+        $(".downQrcode").mouseenter(function () {
+            if (!$(".downQrcode>div").html()) {
+                sdk.createQRCode("//a.app.qq.com/o/simple.jsp?pkgname=com.vutimes.app", 120, 120, function (data) {
+                    $(".downQrcode>div").append('<img src="' + data + '"  >').addClass("active")
+                })
+            } else {
+                $(".downQrcode>div").removeClass("hide").addClass("active")
+            }
+        }).mouseleave(function () {
+                $(".downQrcode>div").addClass("hide").removeClass("active")
+            });
+        if (gc.chid) {
+            sdk.getChannelInfo(gc.chid, function (data) {
+                if (data && data.replaceQrcodeUrl) {
+                    addQrcode(data.replaceQrcodeUrl);
+                    $(".topBar").remove()
+                } else {
+                    addQrcode()
+                }
+            })
+        } else {
+            addQrcode()
+        }
         document.getElementById("scroll").onscroll = function () {
             var scrollTop = document.getElementById("scroll").scrollTop;
             if (scrollTop + $(".wrap").height() >= gc.subheight) {
@@ -2984,12 +2978,10 @@ gc.init(function () {
         }
     } else {
         window.onscroll = function () {
-            console.log(111);
             var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
             pageScroll(scrollTop, gc.height, $(document).height())
         }
+    } if (sdk.isWeixin() || sdk.isQQ()) {
+        gc.share()
     }
-//    if (sdk.isWeixin() || sdk.isQQ()) {
-//        gc.share()
-//    }
 });
