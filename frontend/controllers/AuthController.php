@@ -139,7 +139,7 @@ class AuthController extends Controller
         $nonce = $_GET["nonce"];
         $echoStr = $_GET["echostr"];
 
-        $tmpArr = array(TOKEN,$timestamp,$nonce);
+        $tmpArr = array(self::TOKEN,$timestamp,$nonce);
         sort($tmpArr,SORT_STRING);
         $tmpStr = implode( $tmpArr );
         $tmpStr = sha1( $tmpStr );
