@@ -68,6 +68,12 @@ class GxGameList extends \yii\db\ActiveRecord
     }
     //新开服
     public function getliststart($page,$pageSize) {
-        return GxGameList::find()->where(['type' => 3])->orderby('id desc')->offset(($page - 1)*$pageSize)->limit($pageSize)->asArray()->all();
+        $time = time();
+        return GxGameList::find()->where(['type' => 3])->andWhere(['<=','created_at',$time])->orderby('id desc')->offset(($page - 1)*$pageSize)->limit($pageSize)->asArray()->all();
+    }
+
+    public function getlistsoon($page,$pageSize) {
+        $time = time();
+        return GxGameList::find()->where(['type' => 3])->andWhere(['>','created_at',$time])->orderby('id desc')->offset(($page - 1)*$pageSize)->limit($pageSize)->asArray()->all();
     }
 }

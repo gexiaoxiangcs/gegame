@@ -49,6 +49,18 @@ class ListController extends BaseController
         }
     }
 
+    public function actionGetListSoon() {
+        if (!Yii::$app->request->isAjax) {
+            return $this->_error('401');
+        } else {
+            $model = new GxGameList();
+            $page = Yii::$app->request->get('page');
+            $pageSize = Yii::$app->request->get('pageSize');
+            $data = $model->getlistsoon($page,$pageSize);
+            return $this->_success($data);
+        }
+    }
+
     public function actionGetPageBase() {
         if (!Yii::$app->request->isAjax) {
             return $this->_error('401');
