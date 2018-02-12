@@ -12,6 +12,6 @@ class LoginController extends AuthController
     }
 
     public function actionVerify() {
-        $this->redirect('http://www.baidu.com');
+        $this->verify();
     }
 }

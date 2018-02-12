@@ -12,6 +12,7 @@ class AuthController extends Controller
     const QRCODE_TYPE_TEMP = 1;
     const QRCODE_TYPE_LIMIT = 2;
     const QRCODE_TYPE_LIMIT_STR = 3;
+    const TOKEN = 'gexiaoxiangcs';
     private function _request($method='get',$url,$data=array(),$ssl=true){
         //curl完成，先开启curl模块
         //初始化一个curl资源
@@ -130,6 +131,26 @@ class AuthController extends Controller
        $url =  'https://open.weixin.qq.com/connect/qrconnect?appid='. $this->_appid .'&redirect_uri='.$redirect_uri . '&response_type=code&scope=snsapi_login&state=dasdasdasda#wechat_redirect';
         var_dump($url);exit;
         return $this->_request('get',$url);
+    }
 
+    public function verify() {
+        $signature = $_GET["signature"];
+        $timestamp = $_GET["timestamp"];
+        $nonce = $_GET["nonce"];
+        $echoStr = $_GET["echostr"];
+
+        $tmpArr = array(TOKEN,$timestamp,$nonce);
+        sort($tmpArr,SORT_STRING);
+        $tmpStr = implode( $tmpArr );
+        $tmpStr = sha1( $tmpStr );
+
+
+        if( $signature == $tmpStr )
+        {
+            echo $echoStr;
+        }
+        else
+            echo "Error";
+        exit;
     }
 }
