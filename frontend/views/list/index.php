@@ -291,8 +291,8 @@
     </div>
     <div class="leftInfo"></div>
 </div>
-<script src="//res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
-<script src="./js/openApi.js"></script>
+<!--<script src="//res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>-->
+<!--<script src="./js/openApi.js"></script>-->
 <script src="./js/zepto.min.js"></script>
 <script src="./js/sdk.min.js"></script>
 <script src="./js/sdk_host.min.js"></script>
