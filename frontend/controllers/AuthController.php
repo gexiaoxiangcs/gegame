@@ -8,7 +8,7 @@ class AuthController extends Controller
 {
     private $_appid = 'wx7a81e0c6136aa970';
     private $_appsecret = '696d4430efc43a1e18a4fb3c952df366';
-    private $redirect_uri = 'http://pzlps.cn/gegame/frontend/web/index.php?r=list/index';
+    private $redirect_uri = 'http://pzlps.cn/gegame/frontend/web/index.php?r=login/verify';
     const QRCODE_TYPE_TEMP = 1;
     const QRCODE_TYPE_LIMIT = 2;
     const QRCODE_TYPE_LIMIT_STR = 3;
