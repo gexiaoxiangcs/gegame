@@ -14,4 +14,8 @@ class LoginController extends AuthController
     public function actionVerify() {
         $this->verify();
     }
+
+    public function actionIndex() {
+        return $this->getAccessToken();
+    }
 }

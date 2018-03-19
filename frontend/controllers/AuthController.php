@@ -8,7 +8,7 @@ class AuthController extends Controller
 {
     private $_appid = 'wx7a81e0c6136aa970';
     private $_appsecret = '696d4430efc43a1e18a4fb3c952df366';
-    private $redirect_uri = 'http://pzlps.cn/gegame/frontend/web/index.php?r=login/verify';
+//    private $redirect_uri = 'http://pzlps.cn/gegame/frontend/web/index.php?r=login/verify';
     const QRCODE_TYPE_TEMP = 1;
     const QRCODE_TYPE_LIMIT = 2;
     const QRCODE_TYPE_LIMIT_STR = 3;
@@ -129,7 +129,6 @@ class AuthController extends Controller
     public function renderUrl() {
         $redirect_uri = urlEncode($this->redirect_uri);
        $url =  'https://open.weixin.qq.com/connect/qrconnect?appid='. $this->_appid .'&redirect_uri='.$redirect_uri . '&response_type=code&scope=snsapi_login&state=dasdasdasda#wechat_redirect';
-        var_dump($url);exit;
         return $this->_request('get',$url);
     }
 
