@@ -13,47 +13,57 @@ class AuthController extends Controller
     const QRCODE_TYPE_LIMIT = 2;
     const QRCODE_TYPE_LIMIT_STR = 3;
     const TOKEN = 'gexiaoxiangcs';
-    private function _request($method='get',$url,$data=array(),$ssl=true){
-        //curl完成，先开启curl模块
-        //初始化一个curl资源
-        $curl = curl_init();
-        //设置curl选项
-        curl_setopt($curl,CURLOPT_URL,$url);//url
-        //请求的代理信息
-        $user_agent = isset($_SERVER['HTTP_USER_AGENT'])?$_SERVER['HTTP_USER_AGENT']:'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:38.0) Gecko/20100101 Firefox/38.0 FirePHP/0.7.4';
-        curl_setopt($curl,CURLOPT_USERAGENT,$user_agent);
-        //referer头，请求来源
-        curl_setopt($curl,CURLOPT_AUTOREFERER,true);
-        curl_setopt($curl, CURLOPT_TIMEOUT, 30);//设置超时时间
-        //SSL相关
-        if($ssl){
-            //禁用后，curl将终止从服务端进行验证;
-            curl_setopt($curl,CURLOPT_SSL_VERIFYPEER,false);
-            //检查服务器SSL证书是否存在一个公用名
-            curl_setopt($curl,CURLOPT_SSL_VERIFYHOST,2);
-        }
-        //判断请求方式post还是get
-        if(strtolower($method)=='post') {
-            /**************处理post相关选项******************/
-            //是否为post请求 ,处理请求数据
-            curl_setopt($curl,CURLOPT_POST,true);
-            curl_setopt($curl,CURLOPT_POSTFIELDS,$data);
-        }
-        //是否处理响应头
-        curl_setopt($curl,CURLOPT_HEADER,false);
-        //是否返回响应结果
-        curl_setopt($curl,CURLOPT_RETURNTRANSFER,true);
+//    private function _request($method='get',$url,$data=array(),$ssl=true){
+//        //curl完成，先开启curl模块
+//        //初始化一个curl资源
+//        $curl = curl_init();
+//        //设置curl选项
+//        curl_setopt($curl,CURLOPT_URL,$url);//url
+//        //请求的代理信息
+//        $user_agent = isset($_SERVER['HTTP_USER_AGENT'])?$_SERVER['HTTP_USER_AGENT']:'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:38.0) Gecko/20100101 Firefox/38.0 FirePHP/0.7.4';
+//        curl_setopt($curl,CURLOPT_USERAGENT,$user_agent);
+//        //referer头，请求来源
+//        curl_setopt($curl,CURLOPT_AUTOREFERER,true);
+//        curl_setopt($curl, CURLOPT_TIMEOUT, 30);//设置超时时间
+//        //SSL相关
+//        if($ssl){
+//            //禁用后，curl将终止从服务端进行验证;
+//            curl_setopt($curl,CURLOPT_SSL_VERIFYPEER,false);
+//            //检查服务器SSL证书是否存在一个公用名
+//            curl_setopt($curl,CURLOPT_SSL_VERIFYHOST,2);
+//        }
+//        //判断请求方式post还是get
+//        if(strtolower($method)=='post') {
+//            /**************处理post相关选项******************/
+//            //是否为post请求 ,处理请求数据
+//            curl_setopt($curl,CURLOPT_POST,true);
+//            curl_setopt($curl,CURLOPT_POSTFIELDS,$data);
+//        }
+//        //是否处理响应头
+//        curl_setopt($curl,CURLOPT_HEADER,false);
+//        //是否返回响应结果
+//        curl_setopt($curl,CURLOPT_RETURNTRANSFER,true);
+//
+//        //发出请求
+//        $response = curl_exec($curl);
+//        if (false === $response) {
+//            echo '<br>', curl_error($curl), '<br>';
+//            return false;
+//        }
+//        //关闭curl
+//        curl_close($curl);
+//        return $response;
+//    }
 
-        //发出请求
-        $response = curl_exec($curl);
-        if (false === $response) {
-            echo '<br>', curl_error($curl), '<br>';
-            return false;
-        }
-        //关闭curl
-        curl_close($curl);
-        return $response;
-    }
+private function _request($url) {
+    curl = curl_init();
+    curl_setopt($curl, CURLOPT_URL, $url);
+    curl_setopt($curl, CURLOPT_HEADER, 0);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_TIMEOUT, 10);
+    $return = curl_exec($curl);
+    curl_close($curl);
+}
 
     public function getAccessToken($token_file = '../runtime/access_token'){
         //考虑这个access_token是否过期
@@ -66,7 +76,8 @@ class AuthController extends Controller
 
         $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={$this->_appid}&secret={$this->_appsecret}";
         //向该地址发送get请求
-        $result = $this->_request('get',$url);
+//        $result = $this->_request('get',$url);
+        $result = $this->_request($url);
         //处理响应结果
         if(!$result){
             return false;
