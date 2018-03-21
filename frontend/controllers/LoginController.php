@@ -16,7 +16,10 @@ class LoginController extends AuthController
     }
 
     public function actionIndex() {
-//        return $this->auth();
+        return $this->auth();
+    }
+
+    public function actionGo() {
         var_dump(111);
     }
 }
