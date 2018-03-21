@@ -63,6 +63,7 @@ private function _request($url) {
     curl_setopt($curl, CURLOPT_TIMEOUT, 10);
     $return = curl_exec($curl);
     curl_close($curl);
+    return $return;
 }
 
     public function getAccessToken($token_file = '../runtime/access_token'){
