@@ -10,12 +10,13 @@ class LoginController extends AuthController
     public function actionNewLogin() {
         return $this->renderUrl();
     }
-
+//wechat服务器配置url验证
     public function actionVerify() {
         $this->verify();
     }
 
     public function actionIndex() {
-        return $this->getAccessToken();
+//        return $this->auth();
+        var_dump(111);
     }
 }

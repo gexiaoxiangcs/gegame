@@ -8,7 +8,7 @@ class AuthController extends Controller
 {
     private $_appid = 'wx7a81e0c6136aa970';
     private $_appsecret = '696d4430efc43a1e18a4fb3c952df366';
-//    private $redirect_uri = 'http://pzlps.cn/gegame/frontend/web/index.php?r=login/verify';
+    private $redirect_uri = 'http://pzlps.cn/gegame/frontend/web/index.php?r=login/index';
     const QRCODE_TYPE_TEMP = 1;
     const QRCODE_TYPE_LIMIT = 2;
     const QRCODE_TYPE_LIMIT_STR = 3;
@@ -162,5 +162,10 @@ private function _request($url) {
         else
             echo "Error";
         exit;
+    }
+
+    public function auth() {
+//        $token = $this->getAccessToken();
+        $url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . $this->_appid . '&redirect_uri=' . $redirect_uri = urlEncode($this->redirect_uri);  . '&response_type=code&scope=SCOPE&state=STATE#wechat_redirect';
     }
 }
