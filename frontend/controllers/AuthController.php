@@ -166,6 +166,7 @@ private function _request($url) {
 
     public function auth() {
 //        $token = $this->getAccessToken();
+        $redirect_uri = urlEncode($this->redirect_uri);
         $url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . $this->_appid . '&redirect_uri=' . $redirect_uri  . '&response_type=code&scope=SCOPE&state=STATE#wechat_redirect';
         return $this->_request('get',$url);
     }
