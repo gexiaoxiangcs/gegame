@@ -73,8 +73,7 @@ private function _request($url) {
 
     public function actionGo() {
         $code = Yii::$app->request->get('code');
-        $userinfo = $this->getUserinfo($code);
-        $this->openid = $userinfo->openid;
+        $this->openid = $this->getUserinfo($code);
     }
 
     public function getAccessToken($token_file = '../runtime/access_token'){
