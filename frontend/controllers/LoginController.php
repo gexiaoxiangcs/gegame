@@ -20,6 +20,6 @@ class LoginController extends AuthController
     }
 
     public function actionGo() {
-        var_dump(111);
+        var_dump($_GET);
     }
 }
