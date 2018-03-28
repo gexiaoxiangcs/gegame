@@ -7,6 +7,9 @@ use yii\web\Controller;
 
 class LoginController extends AuthController
 {
+    public function init() {
+        $this->auth();
+    }
 //    public function actionNewLogin() {
 //        return $this->renderUrl();
 //    }
