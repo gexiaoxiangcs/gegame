@@ -66,7 +66,31 @@ private function _request($url) {
     return $return;
 }
 
-    public function getAccessToken($token_file = '../runtime/access_token'){
+//    public function getAccessToken($token_file = '../runtime/access_token'){
+//        //考虑这个access_token是否过期
+//        $life_time = 7200;
+//        //文件存在，并且左后修改时间与当前时间的差小于access_token的有效期，则有效
+//        if(file_exists($token_file) && time()-filemtime($token_file)<$life_time){
+//            //得到内容
+//            return file_get_contents($token_file);
+//        }
+//
+//        $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={$this->_appid}&secret={$this->_appsecret}";
+//        //向该地址发送get请求
+////        $result = $this->_request('get',$url);
+//        $result = $this->_request($url);
+//        //处理响应结果
+//        if(!$result){
+//            return false;
+//        }
+//        //存在返回响应结果,返回对象
+//        $result_obj = json_decode($result);
+//        //写入文件
+//        file_put_contents($token_file, $result_obj->access_token);
+//        return $result_obj->access_token;
+//    }
+
+    public function getAccessToken($code,$token_file = '../runtime/access_token'){
         //考虑这个access_token是否过期
         $life_time = 7200;
         //文件存在，并且左后修改时间与当前时间的差小于access_token的有效期，则有效
@@ -74,20 +98,21 @@ private function _request($url) {
             //得到内容
             return file_get_contents($token_file);
         }
-
-        $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={$this->_appid}&secret={$this->_appsecret}";
+        $url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid={$this->_appid}&secret={$this->_appsecret}&code={$code}&grant_type=authorization_code";
+//        $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={$this->_appid}&secret={$this->_appsecret}";
         //向该地址发送get请求
 //        $result = $this->_request('get',$url);
         $result = $this->_request($url);
+        var_dump($result);exit;
         //处理响应结果
         if(!$result){
             return false;
         }
-        //存在返回响应结果,返回对象
-        $result_obj = json_decode($result);
-        //写入文件
-        file_put_contents($token_file, $result_obj->access_token);
-        return $result_obj->access_token;
+//        //存在返回响应结果,返回对象
+//        $result_obj = json_decode($result);
+//        //写入文件
+//        file_put_contents($token_file, $result_obj->access_token);
+//        return $result_obj->access_token;
     }
 
     public function getQRCodeTicket($content,$type=2,$expire=604800){

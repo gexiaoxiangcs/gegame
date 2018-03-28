@@ -20,6 +20,7 @@ class LoginController extends AuthController
     }
 
     public function actionGo() {
-        var_dump($_GET);
+        $code = Yii::$app->request->get('code');
+        $this->getAccessToken($code);
     }
 }
