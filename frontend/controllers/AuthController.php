@@ -56,6 +56,10 @@ class AuthController extends Controller
 //        return $response;
 //    }
 
+public function init() {
+    $this->auth();
+}
+
 private function _request($url) {
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_URL, $url);
