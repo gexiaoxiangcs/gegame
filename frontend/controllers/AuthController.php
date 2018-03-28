@@ -73,7 +73,7 @@ private function _request($url) {
 
     public function actionGo() {
         $code = Yii::$app->request->get('code');
-        $this->openid = $this->getUserinfo($code);
+        $this->getUserinfo($code);
     }
 
     public function getAccessToken($token_file = '../runtime/access_token'){
@@ -113,12 +113,11 @@ private function _request($url) {
 
         //存在返回响应结果,返回对象
         $result_obj = json_decode($result);
-        $access_token = $result_obj->access_token;
-        $openid = $result_obj->openid;
+        $this->openid = $result_obj->openid;
+        return;
 //        $url_userinfo = "https://api.weixin.qq.com/sns/userinfo?access_token={$access_token}&openid={$openid}&lang=zh_CN";
 //        $result = $this->_request($url_userinfo);
 //        var_dump($result);exit;
-        return $openid;
     }
 
 //    public function getQRCodeTicket($content,$type=2,$expire=604800){
