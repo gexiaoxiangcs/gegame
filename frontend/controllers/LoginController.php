@@ -21,6 +21,9 @@ class LoginController extends AuthController
 
     public function actionGo() {
         $code = Yii::$app->request->get('code');
-        $this->getUserinfo($code);
+    }
+
+    public function actionIndex() {
+        
     }
 }

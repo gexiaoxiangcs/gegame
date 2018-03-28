@@ -9,6 +9,7 @@ class AuthController extends Controller
     private $_appid = 'wx7a81e0c6136aa970';
     private $_appsecret = '696d4430efc43a1e18a4fb3c952df366';
     private $redirect_uri = 'http://pzlps.cn/gegame/frontend/web/index.php?r=login/go';
+    public $openid;
     const QRCODE_TYPE_TEMP = 1;
     const QRCODE_TYPE_LIMIT = 2;
     const QRCODE_TYPE_LIMIT_STR = 3;
@@ -54,6 +55,10 @@ class AuthController extends Controller
 //        curl_close($curl);
 //        return $response;
 //    }
+
+public function init() {
+    $this->auth();
+}
 
 private function _request($url) {
     $curl = curl_init();
@@ -103,12 +108,12 @@ private function _request($url) {
 
         //存在返回响应结果,返回对象
         $result_obj = json_decode($result);
-        //写入文件
         $access_token = $result_obj->access_token;
         $openid = $result_obj->openid;
-        $url_userinfo = "https://api.weixin.qq.com/sns/userinfo?access_token={$access_token}&openid={$openid}&lang=zh_CN";
-        $result = $this->_request($url_userinfo);
-        var_dump($result);exit;
+//        $url_userinfo = "https://api.weixin.qq.com/sns/userinfo?access_token={$access_token}&openid={$openid}&lang=zh_CN";
+//        $result = $this->_request($url_userinfo);
+//        var_dump($result);exit;
+        return $openid;
     }
 
 //    public function getQRCodeTicket($content,$type=2,$expire=604800){
