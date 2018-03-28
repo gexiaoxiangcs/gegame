@@ -71,6 +71,12 @@ private function _request($url) {
     return $return;
 }
 
+    public function actionGo() {
+        $code = Yii::$app->request->get('code');
+        $userinfo = $this->getUserinfo($code);
+        $this->openid = $userinfo->openid;
+    }
+
     public function getAccessToken($token_file = '../runtime/access_token'){
         //考虑这个access_token是否过期
         $life_time = 7200;

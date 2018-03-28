@@ -19,11 +19,7 @@ class LoginController extends AuthController
         return $this->auth();
     }
 
-    public function actionGo() {
-        $code = Yii::$app->request->get('code');
-    }
-
     public function actionIndex() {
-        
+        var_dump($this->openid);
     }
 }
