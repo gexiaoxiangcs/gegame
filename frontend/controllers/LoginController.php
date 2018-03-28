@@ -7,9 +7,6 @@ use yii\web\Controller;
 
 class LoginController extends AuthController
 {
-    public function init() {
-        $this->auth();
-    }
 //    public function actionNewLogin() {
 //        return $this->renderUrl();
 //    }
@@ -19,7 +16,8 @@ class LoginController extends AuthController
     }
 
     public function actionAuth() {
-        return $this->auth();
+        $this->auth();
+        var_dump($this->openid);
     }
 
     public function actionIndex() {
